@@ -1,8 +1,13 @@
 package jpa01.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +15,7 @@ import javax.persistence.Table;
 public class Livre {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@Column(name="TITRE", length = 225, nullable = false)
@@ -21,6 +27,11 @@ public class Livre {
 	public Livre() {
 		
 	}
+	
+
+
+	@ManyToMany(mappedBy="livres")
+	private Set<Emprunt> emprunts;
 
 	/**
 	 * @return the id
@@ -62,6 +73,20 @@ public class Livre {
 	 */
 	public void setAuteur(String auteur) {
 		this.auteur = auteur;
+	}
+	
+	/**
+	 * @return the emprunts
+	 */
+	public Set<Emprunt> getEmprunts() {
+		return emprunts;
+	}
+
+	/**
+	 * @param emprunts the emprunts to set
+	 */
+	public void setEmprunts(Set<Emprunt> emprunts) {
+		this.emprunts = emprunts;
 	}
 
 	@Override
